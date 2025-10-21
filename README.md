@@ -17,7 +17,6 @@ git clone <repository-url>
 cd api-tests
 
 ## Команды для запуска
-
 ```bash
 # Установка зависимостей
 pip install -r requirements.txt
@@ -36,3 +35,4 @@ pytest --alluredir=allure-results
 
 # Просмотр Allure отчета
 allure serve allure-results
+
