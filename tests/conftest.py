@@ -73,45 +73,22 @@ def browser(request):
 
 
 @pytest.fixture
-def main_page(browser):
-    """Фикстура для главной страницы"""
-    from pages.main_page import MainPage
-    page = MainPage(browser)
-    page.open()
-    page.wait_for_main_page_loaded()
-    return page
-
-
-@pytest.fixture
-def login_page(browser):
-    """Фикстура для страницы логина"""
-    from pages.login_page import LoginPage
-    return LoginPage(browser)
-
-
-@pytest.fixture
-def order_feed_page(browser):
-    """Фикстура для страницы ленты заказов"""
-    from pages.order_feed_page import OrderFeedPage
-    page = OrderFeedPage(browser)
-    page.open()
-    page.wait_for_page_loaded()
-    return page
-
-
-@pytest.fixture
-def order_modal(browser):
-    """Фикстура для модального окна заказа"""
-    from pages.order_modal import OrderModal
-    return OrderModal(browser)
-
-
-@pytest.fixture
-def authenticated_user(main_page, login_page):
+def authenticated_user(browser):
     """Фикстура для авторизованного пользователя"""
+    from pages.main_page import MainPage
+    from pages.login_page import LoginPage
+    
+    # Создаем экземпляры страниц
+    main_page = MainPage(browser)
+    login_page = LoginPage(browser)
+    
     # Используем тестовые данные из DataHelper
     test_email = DataHelper.get_test_user_email()
     test_password = DataHelper.get_test_user_password()
+
+    # Открываем главную страницу
+    main_page.open()
+    main_page.wait_for_main_page_loaded()
 
     # Переходим на страницу логина
     main_page.click_personal_account()
